@@ -8,24 +8,10 @@ module.exports = {
         
         
         const urls = await connection('images')
-        // .join('project', 'project.id', '=', 'images.project_id')
-        // .select('images.*', 'project.title', 'project.description')
+        
         .join('project', 'project.id', '=', 'images.project_id')
-        .select(['images.*',])
+        .select(['images.*', 'project.title'])
 
-        // const serializedUrls = urls.filter(url => {
-        //     return {
-        //       id: url.id,
-        //       img1: url?.img1,
-        //       img2: url?.img2,
-        //       img3: url?.img3,
-        //       img4: url?.img4,
-        //       img5: url?.img5,
-        //       img6: url?.img6,
-        //       img7: url?.img7,
-        //       img8: url?.img8,
-        //     };
-        //   })
 
         return response.json(urls);
 

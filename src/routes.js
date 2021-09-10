@@ -5,6 +5,9 @@ const OngProfile = require('./Controllers/OngProfile')
 const ProjectControllers = require('./Controllers/ProjectControllers')
 const imgControlles = require('./Controllers/imgControlles');
 const ListControllers = require('./Controllers/ListControllers');
+const ProjectsListControllers = require('./Controllers/ProjectsListControllers');
+const TestControllers = require('./Controllers/TestControllers');
+
 
 // routes.get('/ongs/:id', OngProfile.index);
 
@@ -16,7 +19,12 @@ routes.get('/images', imgControlles.index);
 routes.post('/images', imgControlles.create);
 routes.delete('/images/:id',imgControlles.delete)
 
-routes.get('/list/:project_id', ListControllers.index)
+routes.post('/test', TestControllers.create);
+
+routes.get('/project/:project_id', ListControllers.index)
+
+routes.get('/projects', ProjectsListControllers.index)
+
 
 
 routes.get('/project', ProjectControllers.index)
