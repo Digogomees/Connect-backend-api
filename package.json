@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,4 +19,5 @@
     "knex": "^0.21.17",
     "sqlite3": "^5.0.2"
   }
+
 }

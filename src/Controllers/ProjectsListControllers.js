@@ -1,25 +1,30 @@
 const connection = require('../database/connection')
 
 module.exports = {
-    async index(request, response){
+    async index(request, response) {
 
-        const project = await connection('project')
-            .join('images', 'project.id', '=', 'images.project_id')
-            .select('project.*', 'images.images_url')
-            
+        const projects = await connection('project')
+            .select('project.*')
 
-        // const images = await connection('images')
-            // .join('images', 'images.project_id', '=', 'project.id')
-            // .select('images.images_url');
-        
-        // const serializedImages = images.map((image) => image.images_url);
 
-       
+        const images = await connection('project')
+            .join('images', 'images.project_id', 'project.id')
+            .select('images.*')
 
-        const result = {
-            project
-        }
-        
-        return response.json(result);  
-    } 
+        projects.find(project => {
+            project['images'] = [];
+        });
+
+        images.map((image) => {
+            projects.filter((project) => {
+                if (project.id === image.project_id) {
+                    project.images.push(image.images_url);
+                }
+            })
+        });
+
+        return response.json(projects);
+    }
 }
+
+

@@ -5,9 +5,9 @@ exports.up = function(knex) {
 
     table.increments('id');
     table.string('title').notNullable();
+    table.string('slug').notNullable();
     table.string('description').notNullable();
     table.string('thumbnail').notNullable();
-
 
   })
 };
