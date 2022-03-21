@@ -21,6 +21,8 @@ routes.get('/projects', ProjectsListControllers.index)
 routes.get('/project', ProjectControllers.index)
 // routes.post('/project', ProjectControllers.create)
 routes.delete('/project/:id', ProjectControllers.delete)
+routes.put('/project/:id', ProjectControllers.update)
 
 
 module.exports = routes;
+

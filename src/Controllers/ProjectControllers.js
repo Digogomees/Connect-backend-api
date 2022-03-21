@@ -1,3 +1,4 @@
+const { update } = require('../database/connection');
 const connection = require('../database/connection')
 
 module.exports = {
@@ -30,5 +31,18 @@ module.exports = {
         await connection('project').where('id', id).delete()
 
         return response.status(204).send()
-    }
+    },
+
+    async update(request, response){
+        const {id} = request.params;
+        const {title, description} = request.body;
+
+        await connection('project').where('id', id).update({
+            title,
+            description
+        })
+
+        return response.status(204).send('Atualizado com sucesso !!')
+    },
+
 }
