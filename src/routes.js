@@ -3,25 +3,26 @@ const routes = express.Router();
 
 const ProjectControllers = require('./Controllers/ProjectControllers')
 const imgControlles = require('./Controllers/imgControlles');
-const ListControllers = require('./Controllers/ListControllers');
+const ProjectListControllers = require('./Controllers/ProjectListControllers');
 const ProjectsListControllers = require('./Controllers/ProjectsListControllers');
-const TestControllers = require('./Controllers/TestControllers');
+const CreateNewProject = require('./Controllers/createProject');
+const multerConfig = require('./config/multer');
+const multer = require('multer');
 
-
-// routes.get('/images', imgControlles.index);
-// routes.post('/images', imgControlles.create);
-// routes.delete('/images/:id',imgControlles.delete)
-
-routes.post('/test', TestControllers.create);
-routes.get('/project/:slug', ListControllers.index)
+// project with images
+routes.post('/createNewProject', multer(multerConfig).array("files"), CreateNewProject.create);
+routes.get('/project/:slug', ProjectListControllers.index)
 routes.get('/projects', ProjectsListControllers.index)
 
-
-
-routes.get('/project', ProjectControllers.index)
-// routes.post('/project', ProjectControllers.create)
-routes.delete('/project/:id', ProjectControllers.delete)
+// only Project CRUD
+routes.get('/getProjects', ProjectControllers.index)
+routes.delete('/getProject/:id', ProjectControllers.delete)
 routes.put('/project/:id', ProjectControllers.update)
+
+// only images CRUD
+routes.get('/images', imgControlles.index);
+routes.post('/images', multer(multerConfig).single("file"), imgControlles.create);
+routes.delete('/images/:id',imgControlles.delete)
 
 
 module.exports = routes;
