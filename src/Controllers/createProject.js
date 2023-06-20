@@ -1,5 +1,4 @@
 const connection = require("../database/connection")
-const { index } = require("./ProjectControllers")
 const crypto = require('crypto')
 
 function string_to_slug (str) {
