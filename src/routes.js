@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const routes = express.Router();
 
 const ProjectControllers = require('./Controllers/ProjectControllers')
@@ -7,8 +8,9 @@ const ProjectListControllers = require('./Controllers/ProjectListControllers');
 const ProjectsListControllers = require('./Controllers/ProjectsListControllers');
 const CreateNewProject = require('./Controllers/createProject');
 const multerConfig = require('./config/multer');
-const multer = require('multer');
 const registerControllers = require('./Controllers/registerControllers');
+const AuthControllers = require('./Controllers/AuthControllers');
+const Authmiddle = require('./middleware/auth')
 
 // project with images
 routes.post('/createNewProject', multer(multerConfig).array("files"), CreateNewProject.create);
@@ -27,7 +29,10 @@ routes.delete('/images/:id',imgControlles.delete)
 
 // register
 routes.post('/register', registerControllers.create);
-routes.get('/users', registerControllers.index);
+routes.get('/users', Authmiddle, registerControllers.index);
+
+// Authenticate / Login
+routes.post('/connect/auth', AuthControllers.index)
 
 module.exports = routes;
 

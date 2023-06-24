@@ -23,6 +23,7 @@ module.exports = {
     },
 
     async index(req, res) {
+        // const params = req.query
         try {
             const users = await connection('register').select('register.*')
             return res.status(200).send(users)
