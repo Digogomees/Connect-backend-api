@@ -25,7 +25,7 @@ module.exports = {
     async index(req, res) {
         // const params = req.query
         try {
-            const users = await connection('register').select('register.*')
+            const users = await connection('register').select("id", "email", "category")
             return res.status(200).send(users)
 
         } catch (err) {
