@@ -18,7 +18,8 @@ module.exports = {
 
         const result = {
             ...project,
-            images: serializedImages
+            images: serializedImages,
+            about_project: JSON.parse(project.about_project || null)
         }
         
         return response.json(result);  

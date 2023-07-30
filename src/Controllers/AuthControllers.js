@@ -21,13 +21,37 @@ module.exports = {
             .first()
             .select("id", "email", "category")
 
-            if(!findUser) return res.status(400).send({ erro: 'Usuário não encontrado!' })
+            if(!findUser) return res.status(401).send({ erro: 'Usuário não encontrado!' })
 
             return res.status(200).send({
                 token: generateToken({id: findUser.id, category: findUser.category})
             })
             
         } catch(err) {
+            return res.status(400).send({
+                erro: 'Algo deu errado na autenticação!'
+            })
+        }
+    },
+
+    async getUserInfo (req, res) {
+        try{
+            const authorization = req.headers["authorization"]
+            const token = authorization && authorization.split(" ")[1]
+            const decoded = jwt.decode(token, authSecret.SECRETJWT)
+            const id = decoded?.id
+
+            const findUser = await connection('register')
+            .where({id: id})
+            .first()
+            .select("id", "name", "email", "category")
+
+            if(!findUser) return res.status(401).send({ erro: 'Usuário não encontrado!' })
+
+            return res.status(200).send(findUser)
+            
+        } catch(err) {
+            console.log(err)
             return res.status(400).send({
                 erro: 'Algo deu errado na autenticação!'
             })

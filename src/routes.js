@@ -8,9 +8,10 @@ const ProjectListControllers = require('./Controllers/ProjectListControllers');
 const ProjectsListControllers = require('./Controllers/ProjectsListControllers');
 const CreateNewProject = require('./Controllers/createProject');
 const multerConfig = require('./config/multer');
-const registerControllers = require('./Controllers/registerControllers');
+const registerControllers = require('./Controllers/RegisterControllers');
 const AuthControllers = require('./Controllers/AuthControllers');
-const Authmiddle = require('./middleware/auth')
+const Authmiddle = require('./middleware/auth');
+const Briefing = require('./Controllers/Briefing');
 
 // project with images
 routes.post('/createNewProject', multer(multerConfig).array("files"), CreateNewProject.create);
@@ -33,6 +34,12 @@ routes.get('/users', Authmiddle, registerControllers.index);
 
 // Authenticate / Login
 routes.post('/connect/auth', AuthControllers.index)
+routes.get('/connect/auth/user', Authmiddle, AuthControllers.getUserInfo)
+
+// briefing
+routes.post('/create-briefing', Briefing.createBriefing)
+routes.get('/briefings', Briefing.getBriefing)
+routes.put('/briefing/:id', Briefing.updateBriefing)
 
 module.exports = routes;
 
