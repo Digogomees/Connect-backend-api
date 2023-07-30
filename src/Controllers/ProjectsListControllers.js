@@ -28,12 +28,12 @@ module.exports = {
         });
 
         // transform aboutProject in array 
-        // projects.map(project => ({
-        //     ...project,
-        //     about_project: JSON.parse(project.about_project || null)
-        // }))
+        const newArrayProjects = projects.map(project => ({
+            ...project,
+            about_project: JSON.parse(project.about_project || null)
+        }))
         
-        return response.json(projects);
+        return response.json(newArrayProjects);
     }
 }
 
