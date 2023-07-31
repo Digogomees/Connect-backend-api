@@ -22,6 +22,7 @@ routes.get('/projects', ProjectsListControllers.index)
 routes.get('/getProjects', ProjectControllers.index)
 routes.delete('/getProject/:id', ProjectControllers.delete)
 routes.put('/project/:id', ProjectControllers.update)
+routes.put('/project/:id/views', ProjectControllers.updateViews)
 
 // only images CRUD
 routes.get('/images', imgControlles.index);

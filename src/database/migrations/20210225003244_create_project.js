@@ -10,6 +10,7 @@ exports.up = function(knex) {
     table.json('about_project')
     table.string('tags')
     table.string('thumbnail').notNullable();
+    table.string('views').defaultTo(0);
 
     table.timestamp('created_at').defaultTo(knex.fn.now());
 
